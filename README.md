@@ -172,7 +172,14 @@ func room(_ room: EnxRoom?, activeTalkerList Data: [Any]?) {
     ``` 
 
 ### Exploring the sample app
-![home](~/home.png)  ![conf1](./conf1.png) ![conf2](./conf2.png) ![conf3](./conf3.png) ![conf4](./conf4.png) ![rec1](./rec1.png) ![rec2](./rec2.png) ![rec3](./rec3.png)
+![home](~/home.png)  
+![conf1](./conf1.png) 
+![conf2](./conf2.png) 
+![conf3](./conf3.PNG) 
+![conf4](./conf4.png) 
+![rec1](./rec1.png) 
+![rec2](./rec2.png) 
+![rec3](./rec3.png)
     
 ## 5 Demo
 
