@@ -1,6 +1,6 @@
 # 1-to-1 RTC: A Sample iOS App with EnableX iOS Toolkit
 
-This is a Sample iOS App demonstrates the use of EnableX (https://www.enablex.io) platform Server APIs and iOS Toolkit to build 1-to-1 RTC (Real Time Communication) Application.  It allows developers to ramp up on app development by hosting on their own devices. 
+The sample iOS App demonstrates the use of EnableX (https://www.enablex.io) platform Server APIs and iOS Toolkit to build 1-to-1 RTC (Real Time Communication) Application.  It allows developers to ramp up on app development by hosting on their own devices. 
 
 This App creates a virtual Room on the fly  hosted on the Enablex platform using REST calls and uses the Room credentials (i.e. Room Id) to connect to the virtual Room as a Moderator or Participant using a mobile client.  The same Room credentials can be shared with others to join the same virtual Room to carry out a RTC (Real Time Communication) session. 
 
@@ -142,15 +142,17 @@ func room(_ room: EnxRoom?, activeTalkerList Data: [Any]?) {
 }
 ```
 ### 4.5 Start Canvas
-    Enablex Platform provide api to start canvas.
+    Enablex Platform provide api to start/stop canvas. 
     To initiate canvas customer must have canvas subscription enable in their room.
-    Note:- At a time one side canvas will possible. Exm:- If in room their are 2 participents 'A' and 'B', If participent 'A' will start canvas then participent 'B' can view only or vice varsa.
+    
+    Note:- Right now only one user can share his canvas at any given time in the room. The canvas stream can be edited in real time
+    only by the person who started the canvas. Exm:- If in room their are 2 participants 'A' and 'B', If participant 'A' start the canvas then participant 'B' can only view and vice varsa.
     Method:
     ``` 
         Start Canvas
             -(void)startCanvas:(UIView*_Nonnull)view;
             /*
-            Here user needs to pass the view, which he/she want to publish over canvas.
+            Here user needs to pass the view, which he/she wants to publish as another stream into the room over the canvas channel. 
             */
         Stop Canvas
             -(void)stopCanvas;
@@ -164,7 +166,7 @@ func room(_ room: EnxRoom?, activeTalkerList Data: [Any]?) {
         //Stop Canvas
         -(void)room:(EnxRoom *_Nullable)room didStoppedCanvasACK:(NSArray *_Nullable)Data;
     /*
-        Other participents in same room will receive delegates as Below */
+        Other participants in same room will receive delegates as Below */
         //Once Canvas start
         -(void)room:(EnxRoom*)room canvasStarted:(NSArray * _Nullable)Data;
         //Once Canvas Stopen
@@ -172,15 +174,15 @@ func room(_ room: EnxRoom?, activeTalkerList Data: [Any]?) {
     ``` 
 
 ### Exploring the sample app
-    Join Screen :- On this screen user will create roomID, and share same roomID to other end user join same room.
+    Join Screen :- On this screen user creates the roomID, and share this roomID to other end user who has to join this room.
 ![home](./home.PNG)  
 
    ``` 
-   Here in this screen 2 participent join the same room. On Top of the screen, option for start canvas.
+   Here in this screen 2nd participant joins into the same room. On Top of the screen, option button is available to start the  canvas.
    ```
 ![conf1](./conf1.PNG) 
    ```
-   Once user will click start canvas, Other white page will open, where user can drow test or play video etc. In this example we are changing color and name of the color for canvas screen on "Change color button tap"
+   Once user clicks start canvas, a white page will open, where user can draw, add interactive buttons or play a video etc. In this example we will change the canvas  color and its name on "Change color button tap"
 ```
 ![conf2](./conf2.PNG)   ![rec1](./rec1.PNG) 
 ```
@@ -193,7 +195,7 @@ func room(_ room: EnxRoom?, activeTalkerList Data: [Any]?) {
 ![conf4](./conf4.PNG)   ![rec3](./rec3.PNG)
 ![conf5](./conf5.PNG)   ![rec3](./rec4.PNG)
 ```
-    As we can see in screen once any user will start canvas,users in same room can view same canvas in that room,based on action taken from canvas owner, other end its reflecting.
+    As you can see once any user starts the canvas, users in same room views the activity on the canvas, based on the interactive actions initiated from canvas owner.
 ```
     
 ## 5 Demo
