@@ -172,14 +172,29 @@ func room(_ room: EnxRoom?, activeTalkerList Data: [Any]?) {
     ``` 
 
 ### Exploring the sample app
+    Join Screen :- On this screen user will create roomID, and share same roomID to other end user join same room.
 ![home](./home.PNG)  
+
+   ``` 
+   Here in this screen 2 participent join the same room. On Top of the screen, option for start canvas.
+   ```
 ![conf1](./conf1.PNG) 
-![conf2](./conf2.PNG) 
-![conf3](./conf3.PNG) 
-![conf4](./conf4.PNG) 
-![rec1](./rec1.PNG) 
-![rec2](./rec2.PNG) 
-![rec3](./rec3.PNG)
+   ```
+   Once user will click start canvas, Other white page will open, where user can drow test or play video etc. In this example we are changing color and name of the color for canvas screen on "Change color button tap"
+```
+![conf2](./conf2.PNG)   ![rec1](./rec1.PNG) 
+```
+    Changed color from white to Red.
+```
+![conf3](./conf3.PNG)   ![rec2](./rec2.PNG) 
+```
+    Changed color from Red to Blue.
+```
+![conf4](./conf4.PNG)   ![rec3](./rec3.PNG)
+![conf5](./conf5.PNG)   ![rec3](./rec4.PNG)
+```
+    As we can see in screen once any user will start canvas,users in same room can view same canvas in that room,based on action taken from canvas owner, other end its reflecting.
+```
     
 ## 5 Demo
 

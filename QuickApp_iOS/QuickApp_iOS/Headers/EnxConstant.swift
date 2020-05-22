@@ -10,10 +10,10 @@ import Foundation
 
 //Dev
 
-let userName = "demo"
-let password = "enablex"
+let userName = "Username"
+let password = "Password"
 
-let kBasedURL = "https://mparty-qa.enablex.io/" 
-//"https://vcm-mt.vcloudx.com/"
+let kBasedURL = "End Point URL"
+
 
 
