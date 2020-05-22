@@ -170,16 +170,16 @@ func room(_ room: EnxRoom?, activeTalkerList Data: [Any]?) {
         //Once Canvas Stopen
         -(void)room:(EnxRoom*)room canvasStopped:(NSArray * _Nullable)Data;
     ``` 
-    #### Exploring the sample app
-    
+
+### Exploring the sample app
     ![home](./home.PNG)
-    ![conf1](./conf1.png)
-    ![conf2](./conf2.png)
-    ![conf3](./conf3.png)
-    ![conf4](./conf4.png)
-    ![rec1](./rec1.png)
-    ![rec2](./rec2.png)
-    ![rec3](./rec3.png)
+    ![conf1](./conf1.PNG)
+    ![conf2](./conf2.PNG)
+    ![conf3](./conf3.PNG)
+    ![conf4](./conf4.PNG)
+    ![rec1](./rec1.PNG)
+    ![rec2](./rec2.PNG)
+    ![rec3](./rec3.PNG)
     
 ## 5 Demo
 
