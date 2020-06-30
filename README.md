@@ -14,31 +14,42 @@ This App creates a virtual Room on the fly  hosted on the Enablex platform using
 #### 1.1.1 App Id and App Key 
 
 * Register with EnableX [https://www.enablex.io] 
-* Create your Application
+* Login to the EnableX Portal
+* Create your Application Key
 * Get your App ID and App Key delivered to your Email
 
 
 #### 1.1.2 Sample iOS Client 
 
-* Clone or download this Repository [https://github.com/EnableX/Multiparty-Video-Chat-Application-Sample-for-IOS.git] 
+* Clone or download this Repository [https://github.com/EnableX/One-to-One-Video-Chat-With-Canvas-Webrtc-Application-Sample-for-iOS.git] 
 
 
-#### 1.1.3 Sample App Server 
+#### 1.1.3 Test Application Server
 
-* Clone or download this Repository [https://github.com/EnableX/Video-Conferencing-Open-Source-Web-Application-Sample.git] & follow the steps further 
-* You need to use App ID and App Key to run this Service. 
-* Your iOS Client End Point needs to connect to this Service to create Virtual Room.
-* Follow README file of this Repository to setup the Service.
+You need to setup an Application Server to provision Web Service API for your iOS Application to communicate enabling Video Session. 
 
+To help you to try our iOS Application quickly, without having to setup Applciation Server, this Application is shipped pre-configured to work in a "try" mode with EnableX hosted Application Server i.e. https://demo.enablex.io. 
+
+Our Application Server restricts a single Session Duation to 10 minutes, and allows 1 moderator and note more than 1 Participant in a Session.
+
+Once you tried EnableX iOS Sample Application, you may need to setup your own  Application Server and verify your Application to work with your Application Server.  More on this, read Point 2 later in the Document.
 
 #### 1.1.4 Configure iOS Client 
 
 * Open the App
 * Go to VCXConstant.swift and change the following:
 ``` 
- let userName = "USERNAME"  /* HTTP Basic Auth Username of App Server */
- let password = "PASSWORD"  /* HTTP Basic Auth Password of App Server */
- let kBaseURL = "FQDN"      /* FQDN of of App Server */
+ /* To try the App with Enablex Hosted Service you need to set the kTry = true
+ When you setup your own Application Service, set kTry = false */
+ let kTry = true
+
+ /* Your Web Service Host URL. Keet the defined host when kTry = true */
+ let kBasedURL = "https://demo.enablex.io/"
+     
+ /* Your Application Credential required to try with EnableX Hosted Service
+ When you setup your own Application Service, remove these */
+ let kAppId    = ""
+ let kAppkey   = ""
  ```
  
  Note: The distributable comes with demo username and password for the Service. 
@@ -51,31 +62,32 @@ This App creates a virtual Room on the fly  hosted on the Enablex platform using
 * You need to create a Room by clicking the "Create Room" button.
 * Once the Room Id is created, you can use it and share with others to connect to the Virtual Room to carry out a RTC Session either as a Moderator or a Participant (Choose applicable Role in the Form).
 
-Note: Only one user with Moderator Role allowed to connect to a Virtual Room.
-
-
+Note: Only one user with Moderator Role allowed to connect to a Virtual Room while trying with EnableX Hosted Service. Your Own Application Server may allow upto 5 Moderators.
   
-## 2 Server API
+## 2 Setup Your Own Application Server
 
-EnableX Server API is a Rest API service meant to be called from Partners' Application Server to provision video enabled 
-meeting rooms. API Access is given to each Application through the assigned App ID and App Key. So, the App ID and App Key 
-are to be used as Username and Password respectively to pass as HTTP Basic Authentication header to access Server API.
- 
-For this application, the following Server API calls are used: 
-* https://developer.enablex.io/latest/server-api/rooms-route/#get-rooms - To get list of Rooms
-* https://developer.enablex.io/latest/server-api/rooms-route/#get-room-info - To get information of the given Room
-* https://developer.enablex.io/latest/server-api/rooms-route/#create-token - To create Token for the given Room
+You may need to setup your own Application Server after you tried the Sample Application with EnableX hosted Server. We have differnt variant of Appliciation Server Sample Code, pick one in your preferred language and follow instructions given in respective README.md file.
+
+*NodeJS: [https://github.com/EnableX/Video-Conferencing-Open-Source-Web-Application-Sample.git]
+*PHP: [https://github.com/EnableX/Group-Video-Call-Conferencing-Sample-Application-in-PHP]
+
+Note the following:
+
+* You need to use App ID and App Key to run this Service.
+* Your iOS Client End Point needs to connect to this Service to create Virtual Room and Create Token to join session.
+* Application Server is created using EnableX Server API, a Rest API Service helps in provisioning, session access and pos-session reporting.  
 
 To know more about Server API, go to:
 https://developer.enablex.io/latest/server-api/
 
 
+
 ## 3 iOS Toolkit
 
-iOS App to use iOS Toolkit to communicate with EnableX Servers to initiate and manage Real Time Communications.  
+This Sample Applcation uses EnableX iOS Toolkit to communicate with EnableX Servers to initiate and manage Real Time Communications. You might need to update your Application with latest version of EnableX iOS Toolkit time as and when a new release is avaialble.   
 
 * Documentation: https://developer.enablex.io/latest/client-api/ios-toolkit/
-* Download: https://developer.enablex.io/resources/downloads/#ios-toolkit
+* Download Toolkit: https://developer.enablex.io/resources/downloads/#ios-toolkit
 
 
 ## 4 Application Walk-through
@@ -200,6 +212,8 @@ func room(_ room: EnxRoom?, activeTalkerList Data: [Any]?) {
     
 ## 5 Demo
 
-Visit Demo Zone (https://portal.enablex.io/demo-zone/) to request a Guided Demo or Demo Access to different type of application available there.
+EnableX provides hosted Vemo Application of different use-case for you to try out.
 
-You may also try our Video Meeting and Webinar solutions here: https://web.enablex.io/ucaas/covid-19/
+1. Try a quick Video Call: https://try.enablex.io
+2. Try Apps on Demo Zone: https://portal.enablex.io/demo-zone/
+3. Try Meeting & Webinar:  https://www.enablex.io/ucaas/

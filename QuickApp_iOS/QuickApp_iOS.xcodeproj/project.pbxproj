@@ -23,8 +23,6 @@
 		27F51EDB21B678D4002F7638 /* EnxPlayerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F51EDA21B678D4002F7638 /* EnxPlayerCollectionViewCell.swift */; };
 		709B6A237E4C6B85C5188D70 /* Pods_QuickApp_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23F8611551D7DBA075443ECC /* Pods_QuickApp_iOS.framework */; };
 		838AA8367315353FDE2E9F51 /* Pods_QuickApp_iOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8E0C9923A10C070EEB09631 /* Pods_QuickApp_iOSUITests.framework */; };
-		BD5C2C712476C25F0015BDAC /* EnxRTCiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD5C2C6F2476C2570015BDAC /* EnxRTCiOS.framework */; };
-		BD5C2C722476C25F0015BDAC /* EnxRTCiOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BD5C2C6F2476C2570015BDAC /* EnxRTCiOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D4684D759DF399CB83460F81 /* Pods_QuickApp_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D61B46CF5B14B42965D33C15 /* Pods_QuickApp_iOSTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -44,20 +42,6 @@
 			remoteInfo = QuickApp_iOS;
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		27F51ED921B662FF002F7638 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				BD5C2C722476C25F0015BDAC /* EnxRTCiOS.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		20E8DD13DD95ED2EB660E3FB /* Pods-QuickApp_iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuickApp_iOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-QuickApp_iOSTests/Pods-QuickApp_iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -86,7 +70,6 @@
 		8A35B4054945C6F44AC494BB /* Pods-QuickApp_iOSUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuickApp_iOSUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-QuickApp_iOSUITests/Pods-QuickApp_iOSUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		A0ADE8C9173B771B85DF6489 /* Pods-QuickApp_iOSUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuickApp_iOSUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-QuickApp_iOSUITests/Pods-QuickApp_iOSUITests.release.xcconfig"; sourceTree = "<group>"; };
 		B8E0C9923A10C070EEB09631 /* Pods_QuickApp_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QuickApp_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		BD5C2C6F2476C2570015BDAC /* EnxRTCiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = EnxRTCiOS.framework; sourceTree = "<group>"; };
 		D52FA2C26C20FA63E64E6BF8 /* Pods-QuickApp_iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuickApp_iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-QuickApp_iOS/Pods-QuickApp_iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		D61B46CF5B14B42965D33C15 /* Pods_QuickApp_iOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QuickApp_iOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F223130386AA70F27E8A0D4C /* Pods-QuickApp_iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuickApp_iOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-QuickApp_iOSTests/Pods-QuickApp_iOSTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -97,7 +80,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BD5C2C712476C25F0015BDAC /* EnxRTCiOS.framework in Frameworks */,
 				709B6A237E4C6B85C5188D70 /* Pods_QuickApp_iOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -146,7 +128,6 @@
 		27F51E9021B651D2002F7638 /* QuickApp_iOS */ = {
 			isa = PBXGroup;
 			children = (
-				BD5C2C6F2476C2570015BDAC /* EnxRTCiOS.framework */,
 				27F51EC421B65E0A002F7638 /* AppDelegate */,
 				27F51EC021B65DFE002F7638 /* Headers */,
 				27F51EBF21B65DFD002F7638 /* Model */,
@@ -265,7 +246,6 @@
 				27F51E8B21B651D2002F7638 /* Frameworks */,
 				27F51E8C21B651D2002F7638 /* Resources */,
 				134A3D0166FB62E70067AE7C /* [CP] Embed Pods Frameworks */,
-				27F51ED921B662FF002F7638 /* Embed Frameworks */,
 				272FEEAA21C3C3FB00AFA0D0 /* ShellScript */,
 			);
 			buildRules = (
