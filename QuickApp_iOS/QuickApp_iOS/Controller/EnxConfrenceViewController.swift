@@ -13,19 +13,21 @@ import EnxRTCiOS
 import SVProgressHUD
 class EnxConfrenceViewController: UIViewController {
      @IBOutlet weak var cameraBTN: UIButton!
-    @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var publisherNameLBL: UILabel!
     @IBOutlet weak var subscriberNameLBL: UILabel!
     @IBOutlet weak var messageLBL: UILabel!
     @IBOutlet weak var localPlayerView: EnxPlayerView!
-    @IBOutlet weak var mainPlayerView: EnxPlayerView!
     @IBOutlet weak var optionsView: UIView!
     @IBOutlet weak var optionViewButtonlayout: NSLayoutConstraint!
     @IBOutlet weak var startCanvas: UIButton!
     @IBOutlet weak var changesColor: UIButton!
-    @IBOutlet weak var playerViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var sendLogs: UIButton!
     @IBOutlet weak var playerViewTop: NSLayoutConstraint!
     @IBOutlet weak var canvasView: UIView!
+    @IBOutlet weak var optionCpntentView: UIView!
+    @IBOutlet weak var mainPlayerView: UIView!
+    @IBOutlet weak var canvasPlayerView: UIView!
+    @IBOutlet weak var canvasPlayerHeight: NSLayoutConstraint!
     
     var roomInfo : EnxRoomInfoModel!
     var param : [String : Any] = [:]
@@ -40,6 +42,8 @@ class EnxConfrenceViewController: UIViewController {
     var colorCount : Int! = 0
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.sendSubviewToBack(mainPlayerView);
+        canvasPlayerHeight.constant = 0.0
         localPlayerView.layer.cornerRadius = 8.0
         localPlayerView.layer.borderWidth = 2.0
         localPlayerView.layer.borderColor = UIColor.blue.cgColor
@@ -121,11 +125,13 @@ class EnxConfrenceViewController: UIViewController {
                 //  Success Response from server
                 if let token = tokenModel.token {
                     
-                    let videoSize : NSDictionary =  ["minWidth" : 720 , "minHeight" : 480 , "maxWidth" : 1280, "maxHeight" :720]
+                    let videoSize : NSDictionary =  ["minWidth" : 320 , "minHeight" : 180 , "maxWidth" : 1280, "maxHeight" :720]
                     
-                    let localStreamInfo : NSDictionary = ["video" : self.param["video"]! ,"audio" : self.param["audio"]! ,"data" :self.param["chat"]! ,"name" :self.roomInfo.participantName!,"type" : "public","audio_only": false ,"maxVideoBW" : 400 ,"minVideoBW" : 300 , "videoSize" : videoSize]
+                    let localStreamInfo : NSDictionary = ["video" : self.param["video"]! ,"audio" : self.param["audio"]! ,"data" :self.param["chat"]! ,"name" :self.roomInfo.participantName!,"type" : "public","audio_only": false ,"maxVideoBW" : 120 ,"minVideoBW" : 80 , "videoSize" : videoSize]
                     
-                    let roomInfo : NSDictionary  = ["allow_reconnect" : true , "number_of_attempts" : 3, "timeout_interval" : 20]
+                    let playerConfiguration : NSDictionary = ["avatar":true,"audiomute":true, "videomute":true,"bandwidht":true, "screenshot":true,"iconColor" :"#0000FF"]
+                    
+                   let roomInfo : NSDictionary  = ["allow_reconnect" : true , "number_of_attempts" : 3, "timeout_interval" : 20,"playerConfiguration":playerConfiguration,"activeviews" : "view"]
                     guard let stream = self.objectJoin.joinRoom(token, delegate: self, publishStreamInfo: (localStreamInfo as! [AnyHashable : Any]), roomInfo: (roomInfo as! [AnyHashable : Any]), advanceOptions: nil) else{
                         SVProgressHUD.dismiss()
                         return
@@ -309,9 +315,8 @@ extension EnxConfrenceViewController : EnxRoomDelegate, EnxStreamDelegate {
                 
             }
             localStream.attachRenderer(localPlayerView)
-            localPlayerView.contentMode = UIView.ContentMode.scaleAspectFill        }else{
-            localStream.attachRenderer(mainPlayerView)
-            mainPlayerView.contentMode = UIView.ContentMode.scaleAspectFill
+            localPlayerView.contentMode = UIView.ContentMode.scaleAspectFill
+            
         }
         if listOfParticipantInRoom.count >= 1 {
             listOfParticipantInRoom.removeAll()
@@ -350,15 +355,6 @@ extension EnxConfrenceViewController : EnxRoomDelegate, EnxStreamDelegate {
      */
     func room(_ room: EnxRoom?, didAddedStream stream: EnxStream?) {
         room!.subscribe(stream!)
-    }
-    /*
-     This Delegate will notify to User if any new person Romove from room
-     */
-    func room(_ room: EnxRoom?, didRemovedStream stream: EnxStream?) {
-        //To Do
-        if stream == nil{
-            subscriberNameLBL.isHidden = true
-        }
     }
     /*
      This Delegate will notify to User to subscribe other user stream
@@ -488,96 +484,37 @@ extension EnxConfrenceViewController : EnxRoomDelegate, EnxStreamDelegate {
     /*
      This Delegate will notify to User with active talker list
      */
-    func room(_ room: EnxRoom?, activeTalkerList Data: [Any]?) {
-        //To Do
-        if(streamArray.count > 0){
-            streamArray.removeAll()
-            collectionView.reloadData()
-        }
-        guard let tempDict = Data?[0] as? [String : Any], Data!.count>0 else {
-            messageLBL.text = "Please wait till other participant join."
-            messageLBL.isHidden = false
-            subscriberNameLBL.isHidden = true
-            mainPlayerView.isHidden = true
-            return
-        }
-        let activeListArray = tempDict["activeList"] as? [Any]
-        if (activeListArray?.count == 0){
-            messageLBL.text = "Please wait till other participant join."
-            messageLBL.isHidden = false
-            subscriberNameLBL.isHidden = true
-            mainPlayerView.isHidden = true
-            
-        }
-        else{
-            
-            for (index,active) in (activeListArray?.enumerated())! {
-                // Do this
-                let remoteStreamDict = remoteRoom.streamsByStreamId as! [String : Any]
-                let mostActiveDict = active as! [String : Any]
-                let streamId = String(mostActiveDict["streamId"] as! Int)
-                let stream = remoteStreamDict[streamId] as! EnxStream
-                stream.mediaType = (mostActiveDict["mediatype"] as! String)
-                if(index == 0){
-                    activeStream = stream
-                    mainPlayerView.isHidden = false
-                    subscriberNameLBL.isHidden = false
-                    messageLBL.isHidden = true
-                    
-                    stream.streamAttributes = ["name" : mostActiveDict["name"] as! String]
-                }
-                if(index == 0 && !canvasCheck){
-                    stream.detachRenderer()
-                    stream.attachRenderer(mainPlayerView)
-                    subscriberNameLBL.text = mostActiveDict["name"] as? String
-                    mainPlayerView.bringSubviewToFront(subscriberNameLBL)
-                    mainPlayerView.contentMode = UIView.ContentMode.scaleAspectFill
-                }
-                else{
-                   streamArray.append(stream)
-                   collectionView.reloadData()
-                }
-            }
-            
-        }
+    func room(_ room: EnxRoom?, didActiveTalkerList Data: [Any]?) {
+        // Handle individual stream and there player
+    }
+    func room(_ room: EnxRoom?, didActiveTalkerView view: UIView?) {
+        self.mainPlayerView.addSubview(view!)
+        self.view.bringSubviewToFront(localPlayerView)
+        self.view.bringSubviewToFront(optionCpntentView)
+        self.view.bringSubviewToFront(sendLogs)
     }
     /* Satr canvas callback*/
-    func room(_ room: EnxRoom?, canvasStarted Data: [Any]?) {
-        guard let shareDict = Data?[0] as? [String : Any], Data!.count > 0 else{
-                   return
+    func room(_ room: EnxRoom?, didCanvasStarted stream: EnxStream?) {
+        if(stream?.enxPlayerView != nil){
+            canvasPlayerHeight.constant = 300.0;
+            let playerView = stream?.enxPlayerView!
+            playerView!.frame = CGRect(x: 0, y: 0, width: canvasPlayerView.frame.size.width, height: 300)
+            canvasPlayerView.addSubview(playerView!)
+            playerView!.contentMode = .scaleToFill
+            canvasPlayerView.sendSubviewToBack(playerView!)
         }
-        startCanvas.isHidden = true;
-        canvasCheck = true
-        let remoteStreamDict = remoteRoom.streamsByStreamId as! [String : Any]
-        let streamId = String(shareDict["streamId"] as! Int)
-        guard let stream = remoteStreamDict[streamId] as? EnxStream else {
-            return;
-        }
-        stream.attachRenderer(mainPlayerView)
-        mainPlayerView.contentMode = .scaleAspectFit
-        if activeStream != nil {
-           if !streamArray.contains(activeStream){
-                streamArray.insert(activeStream, at: 0)
-            }
-        }
-        collectionView.reloadData()
     }
-    /* Stop canvas callback*/
-    func room(_ room: EnxRoom?, canvasStopped Data: [Any]?) {
-        canvasCheck = false
-        startCanvas.isHidden = false;
-        for stream in streamArray {
-            if (stream == activeStream) {
-             let index = streamArray.index(of: activeStream)
-             streamArray.remove(at: index!)
-             break;
+    /* Stop Canvas**/
+    func room(_ room: EnxRoom?, didCanvasStopped stream: EnxStream?) {
+        if(stream?.enxPlayerView != nil){
+            canvasPlayerHeight.constant = 0.0;
+            
+            for view in canvasPlayerView.subviews{
+                if (view.isKind(of: EnxPlayerView.self)){
+                    view .removeFromSuperview()
+                }
             }
         }
-        if(activeStream != nil){
-            activeStream.detachRenderer();
-            activeStream.attachRenderer(mainPlayerView)
-        }
-        collectionView.reloadData()
     }
     /*To Ack. User on start Canvas*/
     func room(_ room: EnxRoom?, didStartCanvasACK Data: [Any]?) {
@@ -594,7 +531,7 @@ extension EnxConfrenceViewController : EnxRoomDelegate, EnxStreamDelegate {
         startCanvas.isSelected = false;
         canvasView.isHidden = true;
         changesColor.isHidden = true
-        playerViewTop.constant = 0
+        playerViewTop.constant = 1
         self.view.setNeedsLayout()
     }
     
@@ -638,32 +575,7 @@ extension EnxConfrenceViewController : EnxRoomDelegate, EnxStreamDelegate {
         
     }
     
-    
     //Mark- EnxStreamDelegate Delegate
-    /*
-     This Delegate will notify to current User If User will do Self Stop Video
-     */
-    func stream(_ stream: EnxStream?, didSelfMuteVideo data: [Any]?) {
-        //To Do
-    }
-    /*
-     This Delegate will notify to current User If User will do Self Start Video
-     */
-    func stream(_ stream: EnxStream?, didSelfUnmuteVideo data: [Any]?) {
-        //To Do
-    }
-    /*
-     This Delegate will notify to current User If User will do Self Mute Audio
-     */
-    func stream(_ stream: EnxStream?, didSelfMuteAudio data: [Any]?) {
-        //To Do
-    }
-    /*
-     This Delegate will notify to current User If User will do Self UnMute Audio
-     */
-    func stream(_ stream: EnxStream?, didSelfUnmuteAudio data: [Any]?) {
-        //To Do
-    }
     /*
      This Delegate will notify to current User If any user has stoped There Video or current user Video
      */
@@ -685,32 +597,3 @@ extension EnxConfrenceViewController : EnxRoomDelegate, EnxStreamDelegate {
     }
 }
 
-extension EnxConfrenceViewController : UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
-    
-   // func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-     //   let space : CGFloat = 30
-      //  let size:CGFloat = (collectionView.frame.size.width - space) / 3.0
-     //   return CGSize(width: size, height: size)
-   // }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return streamArray.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "customeCell", for: indexPath) as! EnxPlayerCollectionViewCell
-        let stream = streamArray[indexPath.row]
-        stream.detachRenderer()
-        cell.playerView.isHidden = true
-        stream.attachRenderer(cell.playerView)
-        cell.playerView.isHidden = false
-        cell.playerView.contentMode = UIView.ContentMode.scaleAspectFill
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 2.0
-    }
-    
-    
-}
