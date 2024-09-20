@@ -91,8 +91,8 @@ https://www.enablex.io/developer/video-api/server-api
 
 This Sample Application uses EnableX iOS Toolkit to communicate with EnableX Server to initiate and manage Real-Time Communications. Please update your Application with latest version of EnableX IOS Toolkit as and when a new release is available.   
 
-* Documentation: https://www.enablex.io/developer/video-api/client-api/ios-toolkit/
-* Download Toolkit: https://www.enablex.io/developer/video-api/client-api/ios-toolkit/
+* Documentation: https://developer.enablex.io/docs/references/sdks/video-sdk/ios-sdk/index/
+* Download Toolkit: https://developer.enablex.io/docs/references/sdks/video-sdk/ios-sdk/index/
 
 
 ## 4. Application Walk-through
@@ -102,13 +102,13 @@ This Sample Application uses EnableX iOS Toolkit to communicate with EnableX Ser
 We create a Token for a Room Id to get connected to EnableX Platform to connect to the Virtual Room to carry out an RTC Session.
 
 To create Token, we make use of Server API. Refer following documentation:
-https://www.enablex.io/developer/video-api/server-api/rooms-route/#create-token
+ https://developer.enablex.io/docs/references/apis/video-api/content/api-routes/#create-a-room
 
 
 ### 4.2 Connect to a Room, Initiate & Publish Stream
 
 We use the Token to get connected to the Virtual Room. Once connected, we intiate local stream and publish into the room. Refer following documentation for this process:
-https://www.enablex.io/developer/video-api/client-api/ios-toolkit/room-connection/#connect-room
+https://developer.enablex.io/docs/references/sdks/video-sdk/ios-sdk/room-connection/index/
 
 
 ### 4.3 Play Stream
@@ -119,7 +119,7 @@ let streamView = EnxPlayerView(frame: CGRect)
 self.view.addSubview(streamView) 
 localStream.attachRenderer(streamView) 
   ```
-More on Player: https://www.enablex.io/developer/video-api/client-api/ios-toolkit/play-stream/
+
 
 ### 4.4 Handle Server Events
 
