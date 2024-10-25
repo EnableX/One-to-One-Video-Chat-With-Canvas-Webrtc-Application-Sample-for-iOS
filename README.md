@@ -17,7 +17,7 @@ Interactive Canvas: Experiment with real-time canvas functionalities to enhance 
 
 #### 1.1.1 App Id and App Key 
 
-* Register with EnableX [https://portal.enablex.io/cpaas/trial-sign-up/] 
+* Register with EnableX [https://www.enablex.io/free-trial/] 
 * Create your Application
 * Get your App ID and App Key delivered to your email
 
@@ -220,4 +220,4 @@ func room(_ room: EnxRoom?, activeTalkerList Data: [Any]?) {
 EnableX provides hosted Demo Application Server of different use-case for you to try out.
 
 1. Try a quick Video Call: https://try.enablex.io
-2. Sign up for a free trial https://portal.enablex.io/cpaas/trial-sign-up/
+2. Sign up for a free trial https://www.enablex.io/free-trial/
